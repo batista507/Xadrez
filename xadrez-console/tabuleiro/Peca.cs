@@ -15,6 +15,11 @@ namespace tabuleiro
             Tab = tab;
             Cor = cor;
             QteMovimentos = 0;
+
+        }
+        public void incrementarMovimentos()
+        {
+            QteMovimentos++;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace tabuleiro
+﻿namespace tabuleiro
 {
     class Tabuleiro
     {
@@ -39,7 +36,17 @@ namespace tabuleiro
             Pecas[pos.Linha, pos.Coluna] = p;
             p.Posicao = pos;
         }
-        
+       public Peca retirarPeca(Posicao pos)
+        {
+            if (peca(pos)== null)
+            {
+                return null;
+            }
+            Peca aux = peca(pos);
+            aux.Posicao = null;
+            Pecas[pos.Linha, pos.Coluna] = null;
+            return aux;
+        }
         public void ValidarPosicao(Posicao pos)
         {
             if (!PosicaoValida(pos))
