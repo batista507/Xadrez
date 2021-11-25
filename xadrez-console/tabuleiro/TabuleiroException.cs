@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tabuleiro
 {
-    class TabuleiroException : ApplicationException
+    class TabuleiroException : Exception
     {
         public TabuleiroException(string msg) : base(msg)
         {
