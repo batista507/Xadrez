@@ -64,10 +64,10 @@ namespace Xadrez
             //#jogadaespecial en passant
             if (p is Peao)
             {
-                if(origem.Coluna != destino.Coluna && pecaCapturada == null)
+                if (origem.Coluna != destino.Coluna && pecaCapturada == null)
                 {
                     Posicao posP;
-                    if(p.Cor == Cor.Branca)
+                    if (p.Cor == Cor.Branca)
                     {
                         posP = new Posicao(destino.Linha + 1, destino.Coluna);
                     }
@@ -116,13 +116,13 @@ namespace Xadrez
             }
 
             // #jogadaespecial en passant
-            if(p is Peao)
+            if (p is Peao)
             {
                 if (origem.Coluna != destino.Coluna && pecaCapturada == vulneravelEnPassant)
                 {
                     Peca peao = Tab.retirarPeca(destino);
                     Posicao posP;
-                    if(p.Cor == Cor.Branca)
+                    if (p.Cor == Cor.Branca)
                     {
                         posP = new Posicao(3, destino.Coluna);
                     }
@@ -144,6 +144,23 @@ namespace Xadrez
                 desfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
+            Peca p = Tab.peca(destino);
+
+            // #jogada especial promocao(Simplificada)
+            if (p is Peao)
+            {
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7))
+                {
+                    p = Tab.retirarPeca(destino);
+                    Pecas.Remove(p);
+                    Peca dama = new Dama(Tab, p.Cor);
+                    Tab.ColocarPeca(dama, destino);
+                    Pecas.Add(dama);
+                }
+            }
+
+
+
             if (estaEmXeque(Adversaria(jogadorAtual)))
             {
                 Xeque = true;
@@ -162,7 +179,7 @@ namespace Xadrez
                 MudaJogador();
             }
 
-            Peca p = Tab.peca(destino);
+
 
             //#jogadaespecial en passant
             if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
@@ -340,7 +357,7 @@ namespace Xadrez
             colocarNovaPeca('f', 8, new Bispo(Tab, Cor.Preta));
             colocarNovaPeca('g', 8, new Cavalo(Tab, Cor.Preta));
             colocarNovaPeca('h', 8, new Torre(Tab, Cor.Preta));
-            colocarNovaPeca('a', 7, new Peao(Tab, Cor.Preta,this));
+            colocarNovaPeca('a', 7, new Peao(Tab, Cor.Preta, this));
             colocarNovaPeca('b', 7, new Peao(Tab, Cor.Preta, this));
             colocarNovaPeca('c', 7, new Peao(Tab, Cor.Preta, this));
             colocarNovaPeca('d', 7, new Peao(Tab, Cor.Preta, this));
